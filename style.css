@@ -1,0 +1,116 @@
+/* Root variables for light mode */
+:root {
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --header-background: #f0f0f0;
+  --button-background: #e0e0e0;
+  --button-text: #000000;
+  --border-color: #ddd;
+}
+
+/* Dark mode overrides */
+.dark-mode {
+  --background-color: #121212;
+  --text-color: #ffffff;
+  --header-background: #1f1f1f;
+  --button-background: #333333;
+  --button-text: #ffffff;
+  --border-color: #333;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+header {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--header-background);
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+
+#theme-toggle {
+  background-color: var(--button-background);
+  color: var(--button-text);
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+#topic-list {
+  list-style: none;
+  padding: 0;
+}
+
+#topic-list li {
+  margin: 10px 0;
+}
+
+#qa-section {
+  width: 100%;
+  display: none; /* Initially hidden */
+}
+
+#qa-section h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Fullscreen Q&A styling */
+.qa-item {
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid var(--border-color);
+  scroll-snap-align: start;
+}
+
+.qa-item .question {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.qa-item .answer {
+  display: none; /* Hide answers by default */
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.qa-item .answer.visible {
+  display: block; /* Show the answer when visible */
+}
+
+.show-answer-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: var(--button-background);
+  color: var(--button-text);
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Enable smooth snapping when scrolling */
+#qa-content {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh; /* Makes #qa-content scrollable */
+  width: 100%;
+}
