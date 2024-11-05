@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Topics Website</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Topics</h1>
+    <button id="theme-toggle" onclick="toggleTheme()">Toggle Dark/Light Mode</button>
+  </header>
+
+  <main>
+    <ul id="topic-list">
+      <li><a href="#" onclick="loadTopic('java')">Java</a></li>
+      <li><a href="#" onclick="loadTopic('spring')">Spring</a></li>
+      <!-- Add more topics as needed -->
+    </ul>
+
+    <section id="qa-section">
+      <h2 id="topic-title"></h2>
+      <div id="qa-content"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
