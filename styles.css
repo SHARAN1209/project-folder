@@ -17,37 +17,9 @@ h1 {
     margin-bottom: 20px;
 }
 
-.topics a {
-    display: inline-block;
-    padding: 15px 25px;
-    margin: 10px;
-    text-decoration: none;
-    color: inherit;
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.1);
-    transition: background-color 0.3s;
-}
-
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    border: none;
-    background: rgba(0, 0, 0, 0.1);
-    color: inherit;
-    border-radius: 10px;
-    cursor: pointer;
-    backdrop-filter: blur(10px);
-}
-
-.dark-mode {
-    background-color: #2c2c2c;
-    color: white;
-}
-
 .qa-section {
     height: 100vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     scroll-snap-type: y mandatory;
 }
 
@@ -66,15 +38,15 @@ button {
     transition: transform 0.3s;
 }
 
+.qa-item .toggle-answer {
+    margin-top: 20px;
+}
+
 .answer {
     display: none;
+    margin-top: 20px;
 }
 
 .show-answer .answer {
     display: block;
-}
-
-#back-button, #toggle-mode {
-    font-size: 1.2em;
-    cursor: pointer;
 }
