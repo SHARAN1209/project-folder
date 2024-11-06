@@ -1,52 +1,46 @@
 body {
     font-family: Arial, sans-serif;
-    transition: background-color 0.3s;
-    overflow-x: hidden;
-    margin: 0;
+    background: linear-gradient(135deg, #f0f0f5, #d4d4dd);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
-
-h1 {
-    font-size: 2em;
-    margin-bottom: 20px;
-}
-
-.qa-section {
-    height: 100vh;
-    overflow-y: auto;
-    scroll-snap-type: y mandatory;
-}
-
-.qa-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    padding: 20px;
-    backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    margin: 10px 0;
-    scroll-snap-align: start;
-    transition: transform 0.3s;
-}
-
-.qa-item .toggle-answer {
     margin-top: 20px;
+    text-align: center;
 }
 
-.answer {
+.card {
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+    margin: 10px;
+    background: rgba(255, 255, 255, 0.2); /* Glassmorphism */
+    backdrop-filter: blur(10px); /* Adds blur */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.qa-card {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+.button-show {
+    margin-top: 10px;
+}
+
+.hidden {
     display: none;
-    margin-top: 20px;
-}
-
-.show-answer .answer {
-    display: block;
 }
