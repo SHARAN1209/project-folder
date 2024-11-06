@@ -1,0 +1,5 @@
+topic,question,answer
+"Java Basics","What is JVM?","JVM stands for Java Virtual Machine..."
+"Java Basics","What is JRE?","JRE stands for Java Runtime Environment..."
+"Spring Boot","What is Spring Boot?","Spring Boot is a framework..."
+...
