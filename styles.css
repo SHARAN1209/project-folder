@@ -1,6 +1,8 @@
 body {
     font-family: Arial, sans-serif;
     transition: background-color 0.3s;
+    overflow-x: hidden;
+    margin: 0;
 }
 
 .container {
@@ -30,6 +32,12 @@ h1 {
 button {
     margin-top: 20px;
     padding: 10px 20px;
+    border: none;
+    background: rgba(0, 0, 0, 0.1);
+    color: inherit;
+    border-radius: 10px;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
 }
 
 .dark-mode {
@@ -37,14 +45,24 @@ button {
     color: white;
 }
 
+.qa-section {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
 .qa-item {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     padding: 20px;
     backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     margin: 10px 0;
+    scroll-snap-align: start;
     transition: transform 0.3s;
 }
 
@@ -54,4 +72,9 @@ button {
 
 .show-answer .answer {
     display: block;
+}
+
+#back-button, #toggle-mode {
+    font-size: 1.2em;
+    cursor: pointer;
 }
