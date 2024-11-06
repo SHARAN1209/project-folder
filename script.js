@@ -1,9 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const modeToggle = document.getElementById('toggle-mode');
-    const backButton = document.getElementById('back-button');
-    modeToggle.addEventListener('click', toggleMode);
-    backButton && backButton.addEventListener('click', () => window.history.back());
-
     const topicTitle = document.getElementById('topic-title');
     const qaSection = document.getElementById('qa-section');
 
@@ -11,10 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const topic = new URLSearchParams(window.location.search).get('topic');
         topicTitle.textContent = topic;
         loadQuestions(topic);
-    }
-
-    function toggleMode() {
-        document.body.classList.toggle('dark-mode');
     }
 
     function loadQuestions(topic) {
@@ -40,13 +31,22 @@ document.addEventListener('DOMContentLoaded', function () {
             qaItem.className = 'qa-item';
             qaItem.innerHTML = `
                 <div class="question">${index + 1}. ${question}</div>
-                <button class="toggle-answer">Show Answer</button>
                 <div class="answer">${answer}</div>
+                <button class="toggle-answer">Show Answer</button>
             `;
 
-            qaItem.querySelector('.toggle-answer').addEventListener('click', () => {
+            const toggleButton = qaItem.querySelector('.toggle-answer');
+            const answerDiv = qaItem.querySelector('.answer');
+
+            toggleButton.addEventListener('click', () => {
                 qaItem.classList.toggle('show-answer');
-                qaItem.querySelector('.toggle-answer').textContent = qaItem.classList.contains('show-answer') ? 'Hide Answer' : 'Show Answer';
+                toggleButton.textContent = qaItem.classList.contains('show-answer') ? 'Hide Answer' : 'Show Answer';
+                
+                if (qaItem.classList.contains('show-answer')) {
+                    answerDiv.after(toggleButton); // Move button below answer
+                } else {
+                    toggleButton.after(answerDiv); // Move button back above answer
+                }
             });
 
             qaSection.appendChild(qaItem);
