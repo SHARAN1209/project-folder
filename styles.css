@@ -9,6 +9,7 @@ body {
 
 .container {
     margin-top: 20px;
+    text-align: center;
 }
 
 .card {
@@ -16,8 +17,8 @@ body {
     max-width: 400px;
     padding: 20px;
     margin: 10px;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.2); /* Glassmorphism */
+    backdrop-filter: blur(10px); /* Adds blur */
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
@@ -26,6 +27,14 @@ body {
 
 .card:hover {
     transform: scale(1.05);
+}
+
+.qa-card {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
+    border-radius: 15px;
+    margin-bottom: 15px;
 }
 
 .button-show {
