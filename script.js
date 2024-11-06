@@ -1,18 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
     const modeToggle = document.getElementById('toggle-mode');
+    const backButton = document.getElementById('back-button');
     modeToggle.addEventListener('click', toggleMode);
+    backButton && backButton.addEventListener('click', () => window.history.back());
 
     const topicTitle = document.getElementById('topic-title');
     const qaSection = document.getElementById('qa-section');
-    const backIcon = document.getElementById('back-icon');
 
     if (topicTitle) {
         const topic = new URLSearchParams(window.location.search).get('topic');
         topicTitle.textContent = topic;
         loadQuestions(topic);
     }
-
-    backIcon && backIcon.addEventListener('click', () => window.history.back());
 
     function toggleMode() {
         document.body.classList.toggle('dark-mode');
@@ -47,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             qaItem.querySelector('.toggle-answer').addEventListener('click', () => {
                 qaItem.classList.toggle('show-answer');
+                qaItem.querySelector('.toggle-answer').textContent = qaItem.classList.contains('show-answer') ? 'Hide Answer' : 'Show Answer';
             });
 
             qaSection.appendChild(qaItem);
