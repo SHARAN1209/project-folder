@@ -1,55 +1,65 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const topicTitle = document.getElementById('topic-title');
-    const qaSection = document.getElementById('qa-section');
+document.addEventListener("DOMContentLoaded", function() {
+    const topicsContainer = document.getElementById("topics");
+    const qaSection = document.getElementById("qaSection");
+    const topicTitle = document.getElementById("topicTitle");
 
-    if (topicTitle) {
-        const topic = new URLSearchParams(window.location.search).get('topic');
-        topicTitle.textContent = topic;
-        loadQuestions(topic);
-    }
+    // Load topics from CSV
+    async function loadTopics() {
+        const response = await fetch('topics.csv');
+        const data = await response.text();
+        const rows = data.split('\n').slice(1);
+        const topics = [...new Set(rows.map(row => row.split(',')[0].replace(/"/g, '').trim()))];
 
-    function loadQuestions(topic) {
-        fetch('questions.csv')
-            .then(response => response.text())
-            .then(data => {
-                const questions = parseCSV(data, topic);
-                renderQuestions(questions);
-            });
-    }
-
-    function parseCSV(data, topic) {
-        const lines = data.split('\n');
-        return lines
-            .map(line => line.split(','))
-            .filter(([csvTopic]) => csvTopic.trim() === topic)
-            .map(([, question, answer]) => ({ question, answer }));
-    }
-
-    function renderQuestions(questions) {
-        questions.forEach(({ question, answer }, index) => {
-            const qaItem = document.createElement('div');
-            qaItem.className = 'qa-item';
-            qaItem.innerHTML = `
-                <div class="question">${index + 1}. ${question}</div>
-                <div class="answer">${answer}</div>
-                <button class="toggle-answer">Show Answer</button>
-            `;
-
-            const toggleButton = qaItem.querySelector('.toggle-answer');
-            const answerDiv = qaItem.querySelector('.answer');
-
-            toggleButton.addEventListener('click', () => {
-                qaItem.classList.toggle('show-answer');
-                toggleButton.textContent = qaItem.classList.contains('show-answer') ? 'Hide Answer' : 'Show Answer';
-                
-                if (qaItem.classList.contains('show-answer')) {
-                    answerDiv.after(toggleButton); // Move button below answer
-                } else {
-                    toggleButton.after(answerDiv); // Move button back above answer
-                }
-            });
-
-            qaSection.appendChild(qaItem);
+        topics.forEach(topic => {
+            const topicDiv = document.createElement("div");
+            topicDiv.classList.add("card", "topic-card");
+            topicDiv.innerHTML = `<h3>${topic}</h3>`;
+            topicDiv.onclick = () => window.location.href = `topic.html?topic=${encodeURIComponent(topic)}`;
+            topicsContainer.appendChild(topicDiv);
         });
     }
+
+    // Load questions and answers for a topic
+    async function loadQuestions() {
+        const params = new URLSearchParams(window.location.search);
+        const topic = params.get("topic");
+        topicTitle.innerText = topic;
+
+        const response = await fetch('topics.csv');
+        const data = await response.text();
+        const rows = data.split('\n').slice(1);
+        
+        const qaList = rows
+            .filter(row => row.includes(`"${topic}"`))
+            .map(row => row.split(',').map(cell => cell.replace(/"/g, '').trim()));
+
+        qaList.forEach(([_, question, answer]) => {
+            const card = document.createElement("div");
+            card.classList.add("card", "qa-card");
+
+            const questionText = document.createElement("p");
+            questionText.innerText = question;
+            card.appendChild(questionText);
+
+            const answerText = document.createElement("p");
+            answerText.classList.add("hidden");
+            answerText.innerText = answer;
+            card.appendChild(answerText);
+
+            const showButton = document.createElement("button");
+            showButton.classList.add("btn", "btn-primary", "button-show");
+            showButton.innerText = "Show Answer";
+            showButton.onclick = () => {
+                answerText.classList.toggle("hidden");
+                showButton.innerText = answerText.classList.contains("hidden") ? "Show Answer" : "Hide Answer";
+            };
+
+            card.appendChild(showButton);
+            qaSection.appendChild(card);
+        });
+    }
+
+    // Initialize appropriate function based on page
+    if (topicsContainer) loadTopics();
+    if (qaSection) loadQuestions();
 });
