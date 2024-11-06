@@ -8,13 +8,13 @@ document.addEventListener("DOMContentLoaded", function() {
         const response = await fetch('topics.csv');
         const data = await response.text();
         const rows = data.split('\n').slice(1);
-        const topics = [...new Set(rows.map(row => row.split(',')[0]))];
+        const topics = [...new Set(rows.map(row => row.split(',')[0].replace(/"/g, '').trim()))];
 
         topics.forEach(topic => {
             const topicDiv = document.createElement("div");
-            topicDiv.classList.add("card");
+            topicDiv.classList.add("card", "topic-card");
             topicDiv.innerHTML = `<h3>${topic}</h3>`;
-            topicDiv.onclick = () => window.location.href = `topic.html?topic=${topic}`;
+            topicDiv.onclick = () => window.location.href = `topic.html?topic=${encodeURIComponent(topic)}`;
             topicsContainer.appendChild(topicDiv);
         });
     }
@@ -28,12 +28,14 @@ document.addEventListener("DOMContentLoaded", function() {
         const response = await fetch('topics.csv');
         const data = await response.text();
         const rows = data.split('\n').slice(1);
-        const qaList = rows.filter(row => row.startsWith(`"${topic}"`));
+        
+        const qaList = rows
+            .filter(row => row.includes(`"${topic}"`))
+            .map(row => row.split(',').map(cell => cell.replace(/"/g, '').trim()));
 
-        qaList.forEach(row => {
-            const [_, question, answer] = row.split(',');
+        qaList.forEach(([_, question, answer]) => {
             const card = document.createElement("div");
-            card.classList.add("card");
+            card.classList.add("card", "qa-card");
 
             const questionText = document.createElement("p");
             questionText.innerText = question;
